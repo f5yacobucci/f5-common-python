@@ -131,6 +131,7 @@ class Policy(Resource):
         :raises: OperationNotSupportedOnPublishedPolicy
         '''
 
+        print "STARTING POLICY UPDATE"
         legacy = kwargs.pop('legacy', False)
         tmos_ver = self._meta_data['bigip']._meta_data['tmos_version']
         self._filter_version_specific_options(tmos_ver, **kwargs)
@@ -140,6 +141,7 @@ class Policy(Resource):
             msg = 'Update operation not allowed on a published policy.'
             raise OperationNotSupportedOnPublishedPolicy(msg)
         super(Policy, self)._update(**kwargs)
+        print "FINISHED POLICY UPDATE"
 
     def publish(self, **kwargs):
         '''Publishing a draft policy is only applicable in TMOS 12.1 and up.

@@ -521,6 +521,7 @@ class ResourceBase(PathElement, ToDictMixin):
     def _update(self, **kwargs):
         """wrapped with update, override that in a subclass to customize"""
 
+        print "START RESOURCE UPDATE"
         requests_params, update_uri, session, read_only = \
             self._prepare_put_or_patch(kwargs)
 
@@ -579,16 +580,22 @@ class ResourceBase(PathElement, ToDictMixin):
         # @see https://github.com/requests/requests/issues/2364
         for _ in range(0, 30):
             try:
+                print "STARTING SESSION PUT"
                 response = session.put(update_uri, json=data_dict, **requests_params)
                 self._meta_data = temp_meta
+                print "LOCAL UPDATE"
                 self._local_update(response.json())
+                print "FINISHED LOCAL UPDATE"
+                print "FINISHED SESSION PUT"
                 break
             except iControlUnexpectedHTTPError:
+                print "RECEIVED HTTP ERROR"
                 response = session.get(update_uri, **requests_params)
                 self._meta_data = temp_meta
                 self._local_update(response.json())
                 raise
             except ConnectionError as ex:
+                print "RECEIVED CONNECTION ERROR"
                 if 'Connection aborted' in str(ex):
                     time.sleep(1)
                     continue
