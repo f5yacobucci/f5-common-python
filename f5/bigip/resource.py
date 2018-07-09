@@ -134,7 +134,7 @@ from six import itervalues
 
 import logging
 
-LOGGER = logging.getLogger("f5_cccl")
+LOGGER = logging.getLogger(__name__)
 
 
 def _missing_required_parameters(rqset, **kwargs):

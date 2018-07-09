@@ -38,7 +38,7 @@ from f5.sdk_exception import OperationNotSupportedOnPublishedPolicy
 from distutils.version import LooseVersion
 import logging
 
-logger = logging.getLogger("f5_cccl")
+logger = logging.getLogger(__name__)
 
 
 class Policys(Collection):
