@@ -525,6 +525,9 @@ class ResourceBase(PathElement, ToDictMixin):
     def _update(self, **kwargs):
         """wrapped with update, override that in a subclass to customize"""
 
+        import q
+        q.q("IN RESOURCE UPDATE")
+
         LOGGER.info("START RESOURCE UPDATE")
         requests_params, update_uri, session, read_only = \
             self._prepare_put_or_patch(kwargs)
@@ -605,6 +608,7 @@ class ResourceBase(PathElement, ToDictMixin):
                     continue
                 else:
                     raise
+        q.q("FINISHED RESOURCE UPDATE")
 
     def update(self, **kwargs):
         """Update the configuration of the resource on the BIG-IP®.
