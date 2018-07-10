@@ -589,7 +589,6 @@ class ResourceBase(PathElement, ToDictMixin):
             try:
                 LOGGER.info("STARTING SESSION PUT")
                 LOGGER.info("UPDATE URI {}".format(update_uri))
-                LOGGER.info("DATA DICT {}".format(data_dict))
                 response = session.put(update_uri, json=data_dict, **requests_params)
                 self._meta_data = temp_meta
                 LOGGER.info("LOCAL UPDATE")
